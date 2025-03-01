@@ -5,7 +5,7 @@ import { handlers } from '../../mocks/handlers';
 
 // API通信を行う関数
 const fetchButtonData = async () => {
-  const response = await fetch('/api/data');
+  const response = await fetch('http://localhost:9999/api/data');
   return response.json();
 };
 
