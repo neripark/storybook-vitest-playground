@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Button from './index';
 import { useState } from 'react';
-import { handlers } from '../../mocks/handlers';
+import { generateHander } from '../../mocks/handlers';
 
 // API通信を行う関数
 const fetchButtonData = async () => {
@@ -52,11 +52,14 @@ const Result = ({ data, loading }: { data: any, loading: boolean }) => {
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
-  // parameters: {
-  //   msw: {
-  //     handlers: handlers,
-  //   },
-  // },
+  parameters: {
+    msw: {
+      handlers: [generateHander({
+        message: 'カスタマイズされたモックAPIからのレスポンス',
+        data: [6, 7, 8, 9, 10],
+      })],
+    },
+  },
 };
 
 export default meta;
