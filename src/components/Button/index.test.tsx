@@ -1,9 +1,9 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import * as stories from './index.stories';
 
 // Storybookのストーリーをテストで使用
-const { Primary, Secondary, Disabled } = composeStories(stories);
+const { Primary, Secondary, Disabled, WithAPI } = composeStories(stories);
 
 describe('Button', () => {
   test('プライマリボタンが正しくレンダリングされる', () => {
@@ -30,5 +30,19 @@ describe('Button', () => {
     const button = screen.getByRole('button', { name: 'プライマリボタン' });
     fireEvent.click(button);
     expect(onClickMock).toHaveBeenCalledTimes(1);
+  });
+
+  test('APIからデータを取得して表示する', async () => {
+    render(<WithAPI />);
+    const button = screen.getByRole('button', { name: 'APIデータを取得' });
+    
+    // ボタンをクリック
+    fireEvent.click(button);
+    
+    // API結果が表示されるのを待つ
+    const result = await waitFor(() => screen.getByTestId('api-result'));
+    expect(result).toBeInTheDocument();
+    expect(result).toHaveTextContent('ステータス: success');
+    expect(result).toHaveTextContent('ボタンデータが正常に取得されました');
   });
 }); 
