@@ -28,14 +28,25 @@ const ButtonWithAPI = (args: any) => {
   return (
     <div>
       <Button {...args} onClick={handleClick} disabled={loading} />
-      {data && (
-        <div data-testid="api-result">
-          <p>メッセージ: {data.message}</p>
-          <p>データ: {data.data.join(', ')}</p>
-        </div>
-      )}
+      <Result data={data} loading={loading} />
     </div>
   );
+};
+
+const Result = ({ data, loading }: { data: any, loading: boolean }) => {
+  if (loading) {
+    return <p>データを取得中...</p>;
+  }
+  if (!data) {
+    return <p>データなし</p>;
+  }
+
+  return (
+    <div data-testid="api-result">
+      <p>メッセージ: {data.message}</p>
+      <p>データ: {data.data.join(', ')}</p>
+    </div>
+  )
 };
 
 const meta: Meta<typeof Button> = {
