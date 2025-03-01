@@ -40,9 +40,8 @@ describe('Button', () => {
     fireEvent.click(button);
     
     // API結果が表示されるのを待つ
-    const result = await waitFor(() => screen.getByTestId('api-result'));
-    expect(result).toBeInTheDocument();
-    expect(result).toHaveTextContent('モックAPIからのレスポンス');
-    expect(result).toHaveTextContent('データ: 1, 2, 3, 4, 5');
+    await waitFor(() => screen.getByTestId('api-result'));
+    expect(screen.getByText('モックAPIからのレスポンス')).toBeInTheDocument();
+    expect(screen.getByText('1, 2, 3, 4, 5')).toBeInTheDocument();
   });
 }); 

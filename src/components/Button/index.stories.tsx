@@ -43,8 +43,8 @@ const Result = ({ data, loading }: { data: any, loading: boolean }) => {
 
   return (
     <div data-testid="api-result">
-      <p>メッセージ: {data.message}</p>
-      <p>データ: {data.data.join(', ')}</p>
+      <p>メッセージ: <span>{data.message}</span></p>
+      <p>データ: <span>{data.data.join(', ')}</span></p>
     </div>
   )
 };
@@ -52,11 +52,11 @@ const Result = ({ data, loading }: { data: any, loading: boolean }) => {
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
-  parameters: {
-    msw: {
-      handlers: handlers,
-    },
-  },
+  // parameters: {
+  //   msw: {
+  //     handlers: handlers,
+  //   },
+  // },
 };
 
 export default meta;
