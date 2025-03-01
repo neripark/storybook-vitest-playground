@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { rest } from 'msw';
 import Button from './index';
 import { useState } from 'react';
+import { handlers } from '../../mocks/handlers';
 
 // API通信を行う関数
-export const fetchButtonData = async () => {
-  const response = await fetch('/api/button-data');
+const fetchButtonData = async () => {
+  const response = await fetch('/api/data');
   return response.json();
 };
 
@@ -30,8 +30,8 @@ const ButtonWithAPI = (args: any) => {
       <Button {...args} onClick={handleClick} disabled={loading} />
       {data && (
         <div data-testid="api-result">
-          <p>ステータス: {data.status}</p>
           <p>メッセージ: {data.message}</p>
+          <p>データ: {data.data.join(', ')}</p>
         </div>
       )}
     </div>
@@ -43,16 +43,7 @@ const meta: Meta<typeof Button> = {
   component: Button,
   parameters: {
     msw: {
-      handlers: [
-        rest.get('/api/button-data', (req, res, ctx) => {
-          return res(
-            ctx.json({
-              status: 'success',
-              message: 'ボタンデータが正常に取得されました',
-            })
-          );
-        }),
-      ],
+      handlers: handlers,
     },
   },
 };

@@ -42,7 +42,7 @@ describe('Button', () => {
     // API結果が表示されるのを待つ
     const result = await waitFor(() => screen.getByTestId('api-result'));
     expect(result).toBeInTheDocument();
-    expect(result).toHaveTextContent('ステータス: success');
-    expect(result).toHaveTextContent('ボタンデータが正常に取得されました');
+    expect(result).toHaveTextContent('モックAPIからのレスポンス');
+    expect(result).toHaveTextContent('データ: 1, 2, 3, 4, 5');
   });
 }); 
